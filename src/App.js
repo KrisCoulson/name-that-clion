@@ -1,26 +1,29 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Router } from "@reach/router"
 
-class App extends Component {
+import Home from './Home';
+
+import Directory from './views/directory/Directory';
+import Game from './views/game/Game';
+import Leaderboard from './views/leaderboard/Leaderboard';
+import Login from './views/login/Login';
+import Results from './views/results/Results';
+import Setup from './views/setup/Setup';
+import Start from './views/start/Start';
+
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <Home path="/" />
+        <Directory path="/directory" />
+        <Game path="/game" />
+        <Leaderboard path="/leaderboard" />
+        <Login path="/login" />
+        <Results path="/results" />
+        <Setup path="/setup" />
+        <Start path="/start" />
+      </Router>
     );
   }
 }
