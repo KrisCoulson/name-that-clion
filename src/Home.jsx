@@ -3,7 +3,7 @@ import { Link } from "@reach/router";
 
 const Home = () => (
   <div>
-    <Link to="/login">Login</Link>
+    <Link to="/setup">Set up your account!</Link>
   </div>
 );
 
