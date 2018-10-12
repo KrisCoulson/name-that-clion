@@ -39,109 +39,80 @@ const Possibilities = styled.div`
   flex: 1;
 `;
 
-const possibilities = [
-  {
-    id: 1,
-    name: "Kris Coulson",
-    position: "Frontend Developer",
-    location: "Los Angeles"
-  },
-  {
-    id: 2,
-    name: "Lukas Stuart-Fry",
-    position: "Frontend Developer",
-    location: "Los Angeles"
-  },
-  {
-    id: 3,
-    name: "Jeff Consing",
-    position: "Designer",
-    location: "Los Angeles"
-  }
-];
 
 class GameCard extends React.Component {
-  // state = {
-  //   dropzones: []
-  // }
-  // onDragend () => {
-  //   const { destination, source, draggableId } = result;
-  //
-  //   if (!destination) {
-  //     return;
-  //   }
-  //
-  //   if (
-  //     destination.droppableId === source.droppableId &&
-  //     destination.index === source.index
-  //   ) {
-  //     return;
-  //   }
-  //
-  //   const start = this.state.columns[source.droppableId];
-  //   const finish = this.state.columns[destination.droppableId];
-  //
-  //   if (start === finish) {
-  //     const newTaskIds = Array.from(start.taskIds);
-  //     newTaskIds.splice(source.index, 1);
-  //     newTaskIds.splice(destination.index, 0, draggableId);
-  //
-  //     const newColumn = {
-  //       ...start,
-  //       taskIds: newTaskIds,
-  //     };
-  //
-  //     const newState = {
-  //       ...this.state,
-  //       columns: {
-  //         ...this.state.columns,
-  //         [newColumn.id]: newColumn,
-  //       },
-  //     };
-  //
-  //     this.setState(newState);
-  //     return;
-  //
-  // }
+  componentDidMount() {
+    console.log(this.props)
+  }
+  onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+
+        console.log(result)
+        // console.log(destination)
+
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    const person = this.props.victim;
+    const answer = this.props.victims.map((pos) => pos.uuid )
+                                           .indexOf(person.uuid);
+
+    if(parseInt(destination.droppableId.match(/\d/)[0]) !== parseInt(source.droppableId.match(/\d/)[0])){
+      console.log('missed');
+      this.props.getMissedPerson(person);
+    }
+  }
   render() {
     return (
       <Container>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable droppableId="droppable-1">
+          <Droppable droppableId={`droppable-${this.props.victim.uuid}`}>
             {(droppableProvided, snapshot) => (
               <div ref={droppableProvided.innerRef}>
                 <Draggable
                   innerRef={droppableProvided.innerRef}
                   draggableId="draggable-1"
                   index={0}
+                  style={{ display: 'flex', flex: 1}}
                 >
                   {(provided, snapshot) => (
-                    <Avatar
-                      innerRef={provided.innerRef}
-                      border="8px solid white"
-                      size="200px"
-                      style={{ marginTop: "80px", alignSelf: "center" }}
-                      innerRef={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    />
+                    [this.props.victim].map(() => (
+                      <Avatar
+                        key="1"
+                        innerRef={provided.innerRef}
+                        border="8px solid white"
+                        size="200px"
+                        style={{ marginTop: "80px", alignSelf: "center" }}
+                        innerRef={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      />
+                    ))
                   )}
                 </Draggable>
               </div>
             )}
           </Droppable>
           <Possibilities>
-            {possibilities.map(possibility => (
+            {this.props.victims.map((victim) => (
               <Droppable
-                droppableId={`dropper-${possibility.id}`}
-                key={possibility.id}
+                droppableId={`person-index-${victim.uuid}`}
+                key={victim.uuid}
               >
                 {(provided, snapshot) => (
                   <Possibility innerRef={provided.innerRef}>
                     {provided.placeholder}
-                    <Heading>{possibility.name}</Heading>
-                    <Subtext>{possibility.position}</Subtext>
-                    <Subtext>{possibility.location}</Subtext>
+                    <Heading>{victim.name}</Heading>
+                    <Subtext>{victim.job_title}</Subtext>
+                    <Subtext>{victim.location}</Subtext>
                   </Possibility>
                 )}
               </Droppable>
