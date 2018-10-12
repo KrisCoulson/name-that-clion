@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import Dropzone from "react-dropzone";
 
 import Button from "../../ui/Button";
-import { FullName, JobTitle, Label, Location } from "../../ui/Inputs";
+import { Label, Location, Text } from "../../ui/Inputs";
 
 const options = [
   { value: "Burnaby", label: "Burnaby" },
@@ -88,7 +88,7 @@ class Setup extends React.Component {
             >
               <div>
                 <Label>Enter your full name</Label>
-                <FullName
+                <Text
                   name="fullName"
                   onChange={({ target: { value } }) =>
                     setFieldValue("fullName", value)
@@ -110,7 +110,7 @@ class Setup extends React.Component {
             >
               <div>
                 <Label>Enter your job title</Label>
-                <JobTitle
+                <Text
                   placeholder="Type your job title here..."
                   name="jobTitle"
                   onChange={({ target: { value } }) =>

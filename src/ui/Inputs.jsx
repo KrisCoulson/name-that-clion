@@ -12,11 +12,7 @@ const Input = styled.input`
   font-size: 14px;
 `;
 
-export const FullName = styled(Input).attrs({
-  type: "text"
-})``;
-
-export const JobTitle = styled(Input).attrs({
+export const Text = styled(Input).attrs({
   type: "text"
 })``;
 

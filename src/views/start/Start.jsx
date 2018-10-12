@@ -3,21 +3,12 @@ import { Link } from "@reach/router";
 import styled from "styled-components";
 
 import Button from "../../ui/Button";
+import Logo from '../../ui/Logo';
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-`
-
-const Logo = styled.div`
-  color: white;
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  font-family: "Freckle Face", cursive;
-  font-size: 100px;
-  text-align: center;
 `;
 
 const BottomWrapper = styled.div`
@@ -43,11 +34,7 @@ const StyledLink = styled(Link)`
 export default function() {
   return (
     <Wrapper>
-      <Logo>
-        <span>Name</span>
-        <div style={{ fontSize: "75px" }}>that</div>
-        <span>Clion</span>
-      </Logo>
+      <Logo />
       <BottomWrapper>
         <div>
           <Button>Start</Button>
