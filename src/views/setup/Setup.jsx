@@ -1,9 +1,9 @@
 import React from "react";
 import { Formik } from "formik";
 import Dropzone from "react-dropzone";
-import styled from 'styled-components';
 
-import { FullName, JobTitle, Label, Location } from "../../ui/Inputs";
+import Button from "../../ui/Button";
+import { Label, Location, Text } from "../../ui/Inputs";
 
 const options = [
   { value: "Burnaby", label: "Burnaby" },
@@ -11,18 +11,14 @@ const options = [
   { value: "Los Angeles", label: "Los Angeles" }
 ];
 
-const DropzoneIcon = styled.div`
-  background-color: #EAEBEC;
-  border-radius: 100px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  :hover {
-    cursor: pointer;
-  }
-`;
+const errorStyle = {
+  color: "red",
+  fontSize: "18px",
+  fontWeight: "bold",
+  textShadow: "0 0 1px black",
+  marginTop: "-15px",
+  marginBottom: "15px"
+};
 
 class Setup extends React.Component {
   onDrop = files => console.log("files are : ", files);
@@ -40,54 +36,115 @@ class Setup extends React.Component {
           jobTitle: "",
           location: ""
         }}
+        validate={values => {
+          let errors = {};
+          if (!values.fullName) {
+            errors.fullName = "Required";
+          }
+          if (!values.jobTitle) {
+            errors.jobTitle = "Required";
+          }
+          if (!values.location) {
+            errors.location = "Required";
+          }
+          return errors;
+        }}
       >
-        {({ values, handleSubmit, setFieldValue }) => (
-          <form onSubmit={handleSubmit}>
+        {({ errors, handleSubmit, setFieldValue, touched, values }) => (
+          <form onSubmit={handleSubmit} style={{ marginTop: "30px" }}>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Dropzone
-                accept="image/png"
+                accept="image/jpeg, image/jpg, image/png"
                 onDrop={this.onDrop}
+                style={{
+                  position: "relative",
+                  width: "200px",
+                  height: "200px",
+                  backgroundColor: "#EAEBEC",
+                  borderWidth: "2px",
+                  borderColor: "rgb(102, 102, 102)",
+                  borderStyle: "dashed",
+                  borderRadius: "100px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "20px"
+                }}
               >
-                <DropzoneIcon>hello</DropzoneIcon>
+                <div>
+                  <i
+                    className="fa fa-camera"
+                    style={{ fontSize: "80px", color: "rgba(15, 173, 233, 0.4)" }}
+                  />
+                </div>
               </Dropzone>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column"
+              }}
+            >
               <div>
-              <Label>Enter your full name</Label>
-              <FullName
-                name="fullName"
-                onChange={({ target: { value } }) =>
-                  setFieldValue("fullName", value)
-                }
-                placeholder="type your full name here"
-                value={values.fullName}
-              />
+                <Label>Enter your full name</Label>
+                <Text
+                  name="fullName"
+                  onChange={({ target: { value } }) =>
+                    setFieldValue("fullName", value)
+                  }
+                  placeholder="Type your full name here..."
+                  value={values.fullName}
+                />
+                <div style={errorStyle}>
+                  {errors.fullName && touched.fullName && errors.fullName}
+                </div>
+              </div>
             </div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-            <div>
-              <Label>Enter your job title</Label>
-              <JobTitle
-                placeholder="type your job title here"
-                name="jobTitle"
-                onChange={({ target: { value } }) =>
-                  setFieldValue("jobTitle", value)
-                }
-                value={values.jobTitle}
-              />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column"
+              }}
+            >
+              <div>
+                <Label>Enter your job title</Label>
+                <Text
+                  placeholder="Type your job title here..."
+                  name="jobTitle"
+                  onChange={({ target: { value } }) =>
+                    setFieldValue("jobTitle", value)
+                  }
+                  value={values.jobTitle}
+                />
+                <div style={errorStyle}>
+                  {errors.jobTitle && touched.jobTitle && errors.jobTitle}
+                </div>
+              </div>
             </div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-            <div>
-              <Label>Enter your location</Label>
-              <Location
-                name="location"
-                onChange={value => setFieldValue("location", value)}
-                options={options}
-              />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column"
+              }}
+            >
+              <div>
+                <Label>Enter your location</Label>
+                <Location
+                  name="location"
+                  onChange={value => setFieldValue("location", value)}
+                  options={options}
+                />
+                <div style={errorStyle}>
+                  {errors.location && touched.location && errors.location}
+                </div>
+              </div>
             </div>
-          </div>
-            <button type="submit">Save</button>
+            <div style={{ marginTop: "32px" }}>
+              <Button type="submit">Save</Button>
+            </div>
           </form>
         )}
       </Formik>

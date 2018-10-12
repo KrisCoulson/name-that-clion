@@ -10,7 +10,7 @@ const Button = styled.button`
   border-radius: 40px;
   box-shadow: 0 4px 0 #1a769e;
   width: ${props => props.width || '100%'};
-  font-size: 40px;
+  font-size: ${props => props.size ? `${props.size}px` : '40px'};
   border: none;
 `
 
