@@ -1,28 +1,69 @@
 import React from "react";
 import { Link } from "@reach/router";
+import styled from "styled-components";
 
 import Button from "../../ui/Button";
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`
+
+const Logo = styled.div`
+  color: white;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  font-family: "Freckle Face", cursive;
+  font-size: 100px;
+  text-align: center;
+`;
+
+const BottomWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+const LinkWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  font-size: 40px;
+  margin-top: 30px;
+  padding-bottom: 20px;
+`;
+
+const StyledLink = styled(Link)`
+  color: white;
+`;
+
 export default function() {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div> logo goes here</div>
-      <div style={{ dispay: "flex", flexDirection: "column" }}>
+    <Wrapper>
+      <Logo>
+        <span>Name</span>
+        <div style={{ fontSize: "75px" }}>that</div>
+        <span>Clion</span>
+      </Logo>
+      <BottomWrapper>
         <div>
           <Button>Start</Button>
         </div>
-        <div style={{ fontSize: "40px", marginTop: '30px' }}>
-          <Link to="/leaderboard">
+        <LinkWrapper>
+          <StyledLink to="/leaderboard">
             <i className="fa fa-trophy" />
-          </Link>
-          <Link to="/directory">
+          </StyledLink>
+          <StyledLink to="/directory">
             <i className="fa fa-address-book" />
-          </Link>
-          <Link to="/setup">
+          </StyledLink>
+          <StyledLink to="/setup">
             <i className="fa fa-cog" />
-          </Link>
-        </div>
-      </div>
-    </div>
+          </StyledLink>
+        </LinkWrapper>
+      </BottomWrapper>
+    </Wrapper>
   );
 }
