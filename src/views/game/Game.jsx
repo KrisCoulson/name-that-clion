@@ -4,7 +4,8 @@ import Timer from '../../ui/Timer';
 import GameCard from '../../ui/GameCard';
 
 const GameContainer = styled.div`
-  postion: relative;
+  position: relative;
+  height: 100%;
 `
 const TimerPosition = styled.div`
   position: absolute;

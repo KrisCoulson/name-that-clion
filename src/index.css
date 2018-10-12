@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-html {
+html, body, #root{
   height: 100%;
 }
 
@@ -16,5 +16,4 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(#FF70FD, #8417FF);
   width: 100%;
-  height: 100%;
 }

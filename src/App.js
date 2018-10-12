@@ -14,7 +14,7 @@ import Start from './views/start/Start';
 class App extends React.Component {
   render() {
     return (
-      <Router basepath={process.env.PUBLIC_URL} style={{ height: '100%'}}>
+      <Router basepath={process.env.PUBLIC_URL} style={{ height: '100%' }}>
         <Home path="/" />
         <Directory path="/directory" />
         <Game path="/game" />
